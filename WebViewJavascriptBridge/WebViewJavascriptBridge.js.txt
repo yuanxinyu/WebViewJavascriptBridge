@@ -38,6 +38,10 @@
 	function callHandler(handlerName, data, responseCallback) {
 		_doSend({ handlerName:handlerName, data:data }, responseCallback)
 	}
+    
+    function call(handlerName, data) {
+		_doSend({ handlerName:handlerName, data:data }, function(resp){})
+	}
 	
 	function _doSend(message, responseCallback) {
 		if (responseCallback) {
@@ -103,9 +107,11 @@
 		send: send,
 		registerHandler: registerHandler,
 		callHandler: callHandler,
+        call: call,
 		_fetchQueue: _fetchQueue,
 		_handleMessageFromObjC: _handleMessageFromObjC
 	}
+    window.WeixinJSBridge = window.DfaceJSBridge;
 
 	var doc = document
 	_createQueueReadyIframe(doc)

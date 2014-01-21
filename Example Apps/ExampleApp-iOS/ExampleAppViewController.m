@@ -32,6 +32,11 @@
         NSLog(@"testObjcCallback called: %@", data);
         responseCallback(@"Response from testObjcCallback");
     }];
+
+    [_bridge registerHandler:@"hideOptionMenu" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"hideOptionMenu called: %@", data);
+        responseCallback(@"Response from hideOptionMenu");
+    }];
     
     [_bridge send:@"A string sent from ObjC before Webview has loaded." responseCallback:^(id responseData) {
         NSLog(@"objc got response! %@", responseData);
