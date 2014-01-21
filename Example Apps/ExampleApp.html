@@ -7,18 +7,18 @@
 		.logLine { border-bottom:1px solid #ccc; padding:4px 2px; font-family:courier; font-size:11px; }
 	</style>
 </head><body>
-	<h1>WebViewJavascriptBridge Demo</h1>
+	<h1>DfaceJSBridge Demo测试</h1>
 	<script>
 	window.onerror = function(err) {
 		log('window.onerror: ' + err)
 	}
 	
 	function connectWebViewJavascriptBridge(callback) {
-		if (window.WebViewJavascriptBridge) {
-			callback(WebViewJavascriptBridge)
+		if (window.DfaceJSBridge) {
+			callback(DfaceJSBridge)
 		} else {
-			document.addEventListener('WebViewJavascriptBridgeReady', function() {
-				callback(WebViewJavascriptBridge)
+			document.addEventListener('DfaceJSBridgeReady', function() {
+				callback(DfaceJSBridge)
 			}, false)
 		}
 	}

@@ -1,5 +1,5 @@
 ;(function() {
-	if (window.WebViewJavascriptBridge) { return }
+	if (window.DfaceJSBridge) { return }
 	var messagingIframe
 	var sendMessageQueue = []
 	var receiveMessageQueue = []
@@ -18,8 +18,8 @@
 	}
 
 	function init(messageHandler) {
-		if (WebViewJavascriptBridge._messageHandler) { throw new Error('WebViewJavascriptBridge.init called twice') }
-		WebViewJavascriptBridge._messageHandler = messageHandler
+		if (DfaceJSBridge._messageHandler) { throw new Error('DfaceJSBridge.init called twice') }
+		DfaceJSBridge._messageHandler = messageHandler
 		var receivedMessages = receiveMessageQueue
 		receiveMessageQueue = null
 		for (var i=0; i<receivedMessages.length; i++) {
@@ -74,7 +74,7 @@
 					}
 				}
 				
-				var handler = WebViewJavascriptBridge._messageHandler
+				var handler = DfaceJSBridge._messageHandler
 				if (message.handlerName) {
 					handler = messageHandlers[message.handlerName]
 				}
@@ -83,7 +83,7 @@
 					handler(message.data, responseCallback)
 				} catch(exception) {
 					if (typeof console != 'undefined') {
-						console.log("WebViewJavascriptBridge: WARNING: javascript handler threw.", message, exception)
+						console.log("DfaceJSBridge: WARNING: javascript handler threw.", message, exception)
 					}
 				}
 			}
@@ -98,7 +98,7 @@
 		}
 	}
 
-	window.WebViewJavascriptBridge = {
+	window.DfaceJSBridge = {
 		init: init,
 		send: send,
 		registerHandler: registerHandler,
@@ -110,7 +110,7 @@
 	var doc = document
 	_createQueueReadyIframe(doc)
 	var readyEvent = doc.createEvent('Events')
-	readyEvent.initEvent('WebViewJavascriptBridgeReady')
-	readyEvent.bridge = WebViewJavascriptBridge
+	readyEvent.initEvent('DfaceJSBridgeReady')
+	readyEvent.bridge = DfaceJSBridge
 	doc.dispatchEvent(readyEvent)
 })();

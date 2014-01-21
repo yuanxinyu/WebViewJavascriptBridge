@@ -129,7 +129,7 @@ static bool logging = false;
     messageJSON = [messageJSON stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"];
     messageJSON = [messageJSON stringByReplacingOccurrencesOfString:@"\f" withString:@"\\f"];
 
-    NSString* javascriptCommand = [NSString stringWithFormat:@"WebViewJavascriptBridge._handleMessageFromObjC('%@');", messageJSON];
+    NSString* javascriptCommand = [NSString stringWithFormat:@"DfaceJSBridge._handleMessageFromObjC('%@');", messageJSON];
     if ([[NSThread currentThread] isMainThread]) {
         [_webView stringByEvaluatingJavaScriptFromString:javascriptCommand];
     } else {
@@ -141,7 +141,7 @@ static bool logging = false;
 }
 
 - (void)_flushMessageQueue {
-    NSString *messageQueueString = [_webView stringByEvaluatingJavaScriptFromString:@"WebViewJavascriptBridge._fetchQueue();"];
+    NSString *messageQueueString = [_webView stringByEvaluatingJavaScriptFromString:@"DfaceJSBridge._fetchQueue();"];
     
     id messages = [self _deserializeMessageJSON:messageQueueString];
     if (![messages isKindOfClass:[NSArray class]]) {
@@ -243,7 +243,7 @@ static bool logging = false;
 {
     if (webView != _webView) { return; }
     
-    if (![[webView stringByEvaluatingJavaScriptFromString:@"typeof WebViewJavascriptBridge == 'object'"] isEqualToString:@"true"]) {
+    if (![[webView stringByEvaluatingJavaScriptFromString:@"typeof DfaceJSBridge == 'object'"] isEqualToString:@"true"]) {
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"WebViewJavascriptBridge.js" ofType:@"txt"];
         NSString *js = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
         [webView stringByEvaluatingJavaScriptFromString:js];
@@ -329,7 +329,7 @@ static bool logging = false;
     
     _numRequestsLoading--;
     
-    if (_numRequestsLoading == 0 && ![[webView stringByEvaluatingJavaScriptFromString:@"typeof WebViewJavascriptBridge == 'object'"] isEqualToString:@"true"]) {
+    if (_numRequestsLoading == 0 && ![[webView stringByEvaluatingJavaScriptFromString:@"typeof DfaceJSBridge == 'object'"] isEqualToString:@"true"]) {
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"WebViewJavascriptBridge.js" ofType:@"txt"];
         NSString *js = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
         [webView stringByEvaluatingJavaScriptFromString:js];
